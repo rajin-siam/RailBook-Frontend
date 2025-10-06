@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Booking, Passenger, TrainService } from '../models/booking.model';
+import { BookingService } from '../services/booking.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-booking-form',
@@ -18,6 +20,8 @@ export class BookingFormComponent implements OnInit {
     perTicketPrice: 0,
     passengers: []
   };
+
+  constructor(private bookingService: BookingService, private router: Router) { }
 
   // Add one passenger when component loads
   ngOnInit() {
@@ -42,8 +46,29 @@ export class BookingFormComponent implements OnInit {
 
   // Function to submit the form
   onSubmit() {
-    console.log('Booking Data:', this.booking);
-    // We'll add API call here later
+    console.log('Submitting booking:', this.booking);
+
+    this.bookingService.createBooking(this.booking).subscribe({
+      next: (response) => {
+        console.log('Booking successful!', response);
+        // Navigate to ticket confirmation page with the booking ID
+        this.router.navigate(['/ticket', response.data.id]);
+      },
+      error: (error) => {
+        console.error('Booking failed:', error);
+        alert('Failed to create booking. Please try again.');
+      }
+    });
+  }
+  // Optional: Reset form after successful booking
+  resetForm() {
+    this.booking = {
+      source: '',
+      destination: '',
+      perTicketPrice: 0,
+      passengers: []
+    };
+    this.addPassenger();
   }
 
   // Function to add a service to a specific passenger
