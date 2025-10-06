@@ -24,7 +24,7 @@ export class TicketConfirmationComponent implements OnInit {
 
   ngOnInit() {
     // Get the booking ID from the URL
-    const bookingId = this.route.snapshot.paramMap.get('data.id');
+    const bookingId = this.route.snapshot.paramMap.get('id');
     
     if (bookingId) {
       this.loadBookingDetails(+bookingId);  // + converts string to number

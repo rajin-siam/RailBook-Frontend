@@ -1,1 +1,113 @@
-<p>ticket-confirmation works!</p>
+<div class="ticket-container">
+  
+  <!-- Loading State -->
+  <div *ngIf="loading" class="loading">
+    <h2>Loading your ticket...</h2>
+    <p>Please wait</p>
+  </div>
+
+  <!-- Error State -->
+  <div *ngIf="error && !loading" class="error-message">
+    <h2>❌ Error</h2>
+    <p>{{ error }}</p>
+    <button (click)="goBackToBooking()" class="btn-back">Back to Booking</button>
+  </div>
+
+  <!-- Ticket Display -->
+  <div *ngIf="bookingData && !loading" class="ticket">
+    
+    <!-- Header -->
+    <div class="ticket-header">
+      <h2>🎫 Booking Confirmation</h2>
+      <div class="status-badge" [class.confirmed]="bookingData.status === 'Confirmed'">
+        {{ bookingData.status }}
+      </div>
+    </div>
+
+    <!-- Booking Info -->
+    <div class="booking-info">
+      <div class="info-row">
+        <span class="label">Booking ID:</span>
+        <span class="value">{{ bookingData.id }}</span>
+      </div>
+      <div class="info-row">
+        <span class="label">Booking Date:</span>
+        <span class="value">{{ bookingData.bookingDate | date:'medium' }}</span>
+      </div>
+    </div>
+
+    <!-- Journey Details -->
+    <div class="section">
+      <h3>🚂 Journey Details</h3>
+      <div class="journey-box">
+        <div class="station">
+          <div class="station-label">FROM</div>
+          <div class="station-name">{{ bookingData.source }}</div>
+        </div>
+        <div class="arrow">→</div>
+        <div class="station">
+          <div class="station-label">TO</div>
+          <div class="station-name">{{ bookingData.destination }}</div>
+        </div>
+      </div>
+      <div class="price-info">
+        <span>Price Per Ticket:</span>
+        <span class="amount">৳{{ bookingData.perTicketPrice }}</span>
+      </div>
+    </div>
+
+    <!-- Passengers -->
+    <div class="section">
+      <h3>👥 Passenger Details</h3>
+      <div *ngFor="let passenger of bookingData.passengers; let i = index" class="passenger-box">
+        <h4>Passenger {{ i + 1 }}</h4>
+        <div class="passenger-info">
+          <div class="info-item">
+            <strong>Name:</strong> {{ passenger.name }}
+          </div>
+          <div class="info-item">
+            <strong>Age:</strong> {{ passenger.age }} years
+          </div>
+          <div class="info-item">
+            <strong>Gender:</strong> {{ passenger.gender }}
+          </div>
+        </div>
+
+        <!-- Services -->
+        <div *ngIf="passenger.trainServices && passenger.trainServices.length > 0" class="services">
+          <strong>Services:</strong>
+          <div *ngFor="let service of passenger.trainServices" class="service-item">
+            <span *ngIf="service.serviceName">{{ service.serviceName }} - ৳{{ service.price }}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Invoice -->
+    <div class="section invoice-section">
+      <h3>💰 Invoice</h3>
+      <div class="invoice-box">
+        <div class="invoice-row">
+          <span>Invoice ID:</span>
+          <span>{{ bookingData.invoice.id }}</span>
+        </div>
+        <div class="invoice-row">
+          <span>Created At:</span>
+          <span>{{ bookingData.invoice.createdAt | date:'medium' }}</span>
+        </div>
+        <div class="invoice-row total">
+          <span>Total Amount:</span>
+          <span class="total-amount">৳{{ bookingData.invoice.totalAmount }}</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Action Buttons -->
+    <div class="actions">
+      <button (click)="printTicket()" class="btn-print">🖨️ Print Ticket</button>
+      <button (click)="goBackToBooking()" class="btn-back">← Book Another Ticket</button>
+    </div>
+
+  </div>
+
+</div>
