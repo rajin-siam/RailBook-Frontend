@@ -1,2 +1,25 @@
-<h1>Train Ticket Booking System</h1>
-<router-outlet></router-outlet>
+<div class="app-container">
+  <!-- Header -->
+  <header class="app-header">
+    <div class="header-content">
+      <h1>🚂 Train Booking System</h1>
+      <p>Book your train tickets easily and quickly</p>
+    </div>
+  </header>
+
+  <!-- Main content area - router-outlet displays the active route's component -->
+  <main class="app-main">
+    <!-- 
+      router-outlet is a placeholder that Angular dynamically fills
+      with the component for the current route
+      - At '/' it shows BookingFormComponent
+      - At '/booking-confirmation/:id' it shows BookingConfirmationComponent
+    -->
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>&copy; 2025 Train Booking System. All rights reserved.</p>
+  </footer>
+</div>

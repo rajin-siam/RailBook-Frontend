@@ -1,0 +1,213 @@
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.booking-card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+}
+
+h1 {
+  color: #2c3e50;
+  margin-bottom: 30px;
+  font-size: 28px;
+  text-align: center;
+}
+
+h2 {
+  color: #34495e;
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+h3 {
+  color: #555;
+  font-size: 16px;
+  margin: 0;
+}
+
+.section {
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  border-bottom: 2px solid #ecf0f1;
+}
+
+.section:last-child {
+  border-bottom: none;
+}
+
+.section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.form-row {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 15px;
+  margin-bottom: 15px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  font-weight: 600;
+  margin-bottom: 5px;
+  color: #555;
+  font-size: 14px;
+}
+
+.form-control {
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: #3498db;
+}
+
+.error {
+  color: #e74c3c;
+  font-size: 12px;
+  margin-top: 5px;
+}
+
+.passenger-card {
+  background: #f8f9fa;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  border: 1px solid #e0e0e0;
+}
+
+.passenger-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.services-section {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px solid #ddd;
+}
+
+.service-header {
+  margin-bottom: 10px;
+}
+
+.service-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: 15px;
+}
+
+.service-chip {
+  background: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 15px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.3s;
+}
+
+.service-chip:hover {
+  background: #2980b9;
+}
+
+.service-item {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.btn {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s;
+}
+
+.btn-primary {
+  background: #3498db;
+  color: white;
+}
+
+.btn-primary:hover {
+  background: #2980b9;
+}
+
+.btn-danger-small {
+  background: #e74c3c;
+  color: white;
+  padding: 5px 10px;
+  font-size: 12px;
+}
+
+.btn-danger-small:hover {
+  background: #c0392b;
+}
+
+.btn-success {
+  background: #27ae60;
+  color: white;
+}
+
+.btn-success:hover {
+  background: #229954;
+}
+
+.btn-success:disabled {
+  background: #95a5a6;
+  cursor: not-allowed;
+}
+
+.btn-large {
+  width: 100%;
+  padding: 15px;
+  font-size: 16px;
+  margin-top: 20px;
+}
+
+.summary {
+  background: #ecf0f1;
+  padding: 20px;
+  border-radius: 8px;
+  margin: 20px 0;
+}
+
+.summary-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 8px 0;
+  font-size: 14px;
+}
+
+.summary-row.total {
+  border-top: 2px solid #bdc3c7;
+  margin-top: 10px;
+  padding-top: 15px;
+  font-size: 18px;
+  color: #27ae60;
+}

@@ -1,10 +1,9 @@
 import { Routes } from '@angular/router';
-import { BookingFormComponent } from './booking-form/booking-form.component';
-import { TicketConfirmationComponent } from './ticket-confirmation/ticket-confirmation.component';
-
+import { BookingFormComponent } from './components/booking-form/booking-form.component';
+import { BookingDetailsComponent } from './components/booking-details/booking-details.component';
 
 export const routes: Routes = [
-  { path: '', component: BookingFormComponent },  // Home page - booking form
-  { path: 'ticket/:id', component: TicketConfirmationComponent },  // Ticket page with ID
-  { path: '**', redirectTo: '' }  // Any unknown route goes to home
+  { path: '', component: BookingFormComponent },
+  { path: 'booking/:id', component: BookingDetailsComponent },
+  { path: '**', redirectTo: '' }
 ];

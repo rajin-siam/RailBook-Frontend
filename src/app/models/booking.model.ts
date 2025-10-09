@@ -1,37 +1,17 @@
 export interface TrainService {
-    serviceName: string;
-    price: number;
-  }
-  
-  export interface Passenger {
-    name: string;
-    age: number;
-    gender: string;
-    trainServices: TrainService[];
-  }
-  
-  export interface Booking {
-    source: string;
-    destination: string;
-    perTicketPrice: number;
-    passengers: Passenger[];
-  }
-
-
-  export interface TrainServiceResponse {
-  id: number;
+  id?: number;
   serviceName: string;
   price: number;
-  passengerId: number;
+  passengerId?: number;
 }
 
-export interface PassengerResponse {
-  id: number;
+export interface Passenger {
+  id?: number;
   name: string;
   age: number;
   gender: string;
-  bookingId: number;
-  trainServices: TrainServiceResponse[];
+  bookingId?: number;
+  trainServices: TrainService[];
 }
 
 export interface Invoice {
@@ -42,14 +22,23 @@ export interface Invoice {
   invoiceDetails: any;
 }
 
-export interface BookingResponse {
-  id: number;
+export interface Booking {
+  id?: number;
   bookingDate: string;
-  status: string;
+  status?: string;
   source: string;
   destination: string;
   perTicketPrice: number;
-  createdAt: string;
-  passengers: PassengerResponse[];
-  invoice: Invoice;
+  createdAt?: string;
+  passengers: Passenger[];
+  invoice?: Invoice;
+}
+
+export interface ApiResponse<T> {
+  success: boolean;
+  message: string;
+  data: T;
+  errors: any;
+  timestamp: string;
+  statusCode: number;
 }

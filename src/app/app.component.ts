@@ -1,16 +1,13 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { BookingFormComponent } from './booking-form/booking-form.component';
-import { FormsModule } from '@angular/forms';
-
-
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, BookingFormComponent, FormsModule],
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'ticket-booking-system';
+  title = 'train-booking-app';
 }
