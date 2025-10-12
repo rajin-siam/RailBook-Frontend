@@ -1,3 +1,4 @@
+<!-- src/app/components/header/header.component.html -->
 <header class="app-header">
   <div class="header-content">
     <!-- Logo/Title -->
@@ -12,7 +13,11 @@
       <!-- Show when user is logged in -->
       <div *ngIf="isLoggedIn" class="nav-items">
         <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
-          Book Ticket
+          New Booking
+        </a>
+        
+        <a routerLink="/my-bookings" class="nav-link" routerLinkActive="active">
+          My Bookings
         </a>
         
         <span class="user-greeting">
