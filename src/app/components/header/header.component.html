@@ -1,0 +1,38 @@
+<header class="app-header">
+  <div class="header-content">
+    <!-- Logo/Title -->
+    <div class="logo">
+      <a routerLink="/">
+        <h1>🚂 Train Booking System</h1>
+      </a>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="nav-menu">
+      <!-- Show when user is logged in -->
+      <div *ngIf="isLoggedIn" class="nav-items">
+        <a routerLink="/" class="nav-link" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">
+          Book Ticket
+        </a>
+        
+        <span class="user-greeting">
+          Welcome, <strong>{{ userName }}</strong>
+        </span>
+        
+        <button class="btn btn-logout" (click)="logout()">
+          Logout
+        </button>
+      </div>
+
+      <!-- Show when user is NOT logged in -->
+      <div *ngIf="!isLoggedIn" class="nav-items">
+        <a routerLink="/login" class="nav-link" routerLinkActive="active">
+          Login
+        </a>
+        <a routerLink="/register" class="btn btn-register">
+          Register
+        </a>
+      </div>
+    </nav>
+  </div>
+</header>
