@@ -23,7 +23,7 @@ interface AuthResponse {
 @Injectable({ providedIn: 'root' })
 export class AuthService {
   private apiUrl = 'http://localhost:5145/api/Auth';
-  private currentUserSubject = new BehaviorSubject(null);
+  private currentUserSubject = new BehaviorSubject<User | null>(null);
   public currentUser$ = this.currentUserSubject.asObservable();
 
   constructor(private http: HttpClient, private router: Router) {
@@ -31,24 +31,24 @@ export class AuthService {
   }
 
   // Register new user
-  register(data: any): Observable {
-    return this.http.post(`${this.apiUrl}/register`, data)
+  register(data: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/register`, data)
       .pipe(tap(response => {
         if (response.success) this.saveAuthData(response.data);
       }));
   }
 
   // Login existing user
-  login(data: any): Observable {
-    return this.http.post(`${this.apiUrl}/login`, data)
+  login(data: any): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(`${this.apiUrl}/login`, data)
       .pipe(tap(response => {
         if (response.success) this.saveAuthData(response.data);
       }));
   }
 
   // Logout user
-  logout(): Observable {
-    return this.http.post(`${this.apiUrl}/logout`, {})
+  logout(): Observable<any> {
+    return this.http.post<any>(`${this.apiUrl}/logout`, {})
       .pipe(tap(() => {
         this.clearAuthData();
         this.router.navigate(['/login']);

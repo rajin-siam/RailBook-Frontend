@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-interface ApiResponse {
+interface ApiResponse<T> {
   success: boolean;
   data: T;
   message: string;
@@ -15,27 +15,27 @@ export class BookingService {
   constructor(private http: HttpClient) {}
 
   // Get all bookings
-  getAllBookings(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(this.apiUrl);
+  getAllBookings(): Observable<ApiResponse<any>> {
+    return this.http.get<ApiResponse<any>>(this.apiUrl);
   }
 
   // Create new booking
-  createBooking(booking: any): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(this.apiUrl, booking);
+  createBooking(booking: any): Observable<ApiResponse<any>> {
+    return this.http.post<ApiResponse<any>>(this.apiUrl, booking);
   }
 
   // Get single booking
-  getBookingById(id: number): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${this.apiUrl}/${id}`);
+  getBookingById(id: number): Observable<ApiResponse<any>> {
+    return this.http.get<ApiResponse<any>>(`${this.apiUrl}/${id}`);
   }
 
   // Update booking
-  updateBooking(id: number, booking: any): Observable<ApiResponse> {
-    return this.http.put<ApiResponse>(`${this.apiUrl}/${id}`, booking);
+  updateBooking(id: number, booking: any): Observable<ApiResponse<any>> {
+    return this.http.put<ApiResponse<any>>(`${this.apiUrl}/${id}`, booking);
   }
 
   // Cancel booking
-  cancelBooking(id: number): Observable<ApiResponse> {
-    return this.http.patch<ApiResponse>(`${this.apiUrl}/${id}`, {});
+  cancelBooking(id: number): Observable<ApiResponse<any>> {
+    return this.http.patch<ApiResponse<any>>(`${this.apiUrl}/${id}`, {});
   }
 }
