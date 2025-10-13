@@ -1,0 +1,137 @@
+<div class="container">
+  <div *ngIf="loading" class="loading">Loading booking...</div>
+
+  <div *ngIf="!loading" class="card">
+    <div class="page-header">
+      <h1>✏️ Edit Booking</h1>
+      <p>Update your train ticket booking details</p>
+    </div>
+    
+    <form [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+      <!-- Trip Details -->
+      <div class="section">
+        <div class="section-header">
+          <h2>Trip Details</h2>
+        </div>
+        
+        <div class="form-row">
+          <div class="form-group">
+            <label>Booking Date & Time *</label>
+            <input type="datetime-local" formControlName="bookingDate" class="form-control">
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Source *</label>
+            <select formControlName="source" class="form-control">
+              <option value="">Select Source</option>
+              <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Destination *</label>
+            <select formControlName="destination" class="form-control">
+              <option value="">Select Destination</option>
+              <option *ngFor="let city of cities" [value]="city">{{ city }}</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group">
+            <label>Price Per Ticket (BDT) *</label>
+            <input type="number" formControlName="perTicketPrice" class="form-control">
+          </div>
+        </div>
+      </div>
+
+      <!-- Passengers -->
+      <div class="section">
+        <div class="section-header">
+          <h2>Passengers ({{ passengers.length }})</h2>
+          <button type="button" class="btn btn-primary" (click)="addPassenger()">+ Add Passenger</button>
+        </div>
+
+        <div formArrayName="passengers">
+          <div *ngFor="let passenger of passengers.controls; let i = index" class="passenger-card" [formGroupName]="i">
+            <div class="passenger-header">
+              <h3>Passenger {{ i + 1 }}</h3>
+              <button type="button" class="btn btn-danger-small" (click)="removePassenger(i)" *ngIf="passengers.length > 1">
+                Remove
+              </button>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group">
+                <label>Name *</label>
+                <input type="text" formControlName="name" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label>Age *</label>
+                <input type="number" formControlName="age" class="form-control">
+              </div>
+
+              <div class="form-group">
+                <label>Gender *</label>
+                <select formControlName="gender" class="form-control">
+                  <option value="">Select Gender</option>
+                  <option *ngFor="let gender of genders" [value]="gender">{{ gender }}</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Services -->
+            <div class="services-section">
+              <label>Train Services</label>
+
+              <div class="service-chips">
+                <button type="button" 
+                        class="service-chip" 
+                        *ngFor="let service of availableServices"
+                        (click)="selectService(i, service.name, service.price)">
+                  {{ service.name }} - {{ service.price }} BDT
+                </button>
+              </div>
+
+              <div formArrayName="trainServices">
+                <div *ngFor="let service of getServices(i).controls; let j = index" 
+                     class="service-item" 
+                     [formGroupName]="j">
+                  <input type="text" formControlName="serviceName" class="form-control" readonly>
+                  <input type="number" formControlName="price" class="form-control" readonly>
+                  <button type="button" class="btn btn-danger-small" (click)="removeService(i, j)">×</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="summary-box">
+        <div class="summary-row">
+          <span>Tickets ({{ passengers.length }} × {{ bookingForm.get('perTicketPrice')?.value || 0 }} BDT):</span>
+          <span>{{ passengers.length * (bookingForm.get('perTicketPrice')?.value || 0) }} BDT</span>
+        </div>
+        <div class="summary-row total">
+          <span><strong>Total Amount:</strong></span>
+          <span><strong>{{ calculateTotal() }} BDT</strong></span>
+        </div>
+      </div>
+
+      <div class="error-message" *ngIf="errorMessage">{{ errorMessage }}</div>
+
+      <div class="btn-group">
+        <button type="button" class="btn btn-secondary btn-large" (click)="cancel()">
+          Cancel
+        </button>
+        <button type="submit" class="btn btn-success btn-large" [disabled]="isSubmitting">
+          {{ isSubmitting ? 'Updating...' : 'Update Booking' }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

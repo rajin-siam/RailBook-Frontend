@@ -1,0 +1,77 @@
+<div class="container">
+  <div class="page-header">
+    <h1>🎫 My Bookings</h1>
+    <button class="btn btn-primary" routerLink="/">+ New Booking</button>
+  </div>
+
+  <div *ngIf="loading" class="loading">
+    <p>Loading your bookings...</p>
+  </div>
+
+  <div *ngIf="error && !loading" class="error-box">
+    <p>{{ error }}</p>
+    <button class="btn btn-primary" (click)="loadBookings()">Try Again</button>
+  </div>
+
+  <div *ngIf="!loading && !error && bookings.length === 0" class="empty-state">
+    <div class="empty-icon">📭</div>
+    <h2>No Bookings Yet</h2>
+    <p>You haven't made any train bookings yet.</p>
+    <button class="btn btn-primary" routerLink="/">Book Your First Ticket</button>
+  </div>
+
+  <div *ngIf="!loading && bookings.length > 0" class="bookings-grid">
+    <div *ngFor="let booking of bookings" class="booking-card">
+      <div class="booking-header">
+        <div class="booking-id">
+          <span class="label">Booking ID:</span>
+          <span class="value">#{{ booking.id }}</span>
+        </div>
+        <div class="status-badge" [ngClass]="getStatusClass(booking.status || '')">
+          {{ booking.status }}
+        </div>
+      </div>
+
+      <div class="booking-route">
+        <div class="route-info">
+          <div class="city">{{ booking.source }}</div>
+          <div class="arrow">→</div>
+          <div class="city">{{ booking.destination }}</div>
+        </div>
+      </div>
+
+      <div class="booking-details">
+        <div class="detail-row">
+          <span class="detail-label">📅 Date:</span>
+          <span class="detail-value">{{ booking.bookingDate | date:'medium' }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">👥 Passengers:</span>
+          <span class="detail-value">{{ getTotalPassengers(booking) }}</span>
+        </div>
+        <div class="detail-row">
+          <span class="detail-label">💰 Total:</span>
+          <span class="detail-value total-amount">{{ booking.invoice?.totalAmount }} BDT</span>
+        </div>
+      </div>
+
+      <div class="booking-actions">
+        <button class="btn btn-view" (click)="viewBooking(booking.id!)">
+          View Details
+        </button>
+        <button 
+          *ngIf="booking.status === 'Confirmed'" 
+          class="btn btn-edit" 
+          (click)="editBooking(booking.id!)">
+          Edit
+        </button>
+        <button 
+          *ngIf="booking.status === 'Confirmed'" 
+          class="btn btn-cancel" 
+          (click)="cancelBooking(booking.id!)">
+          Cancel
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
